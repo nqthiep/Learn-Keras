@@ -5,17 +5,23 @@ from AbstractAI import AbstractAI
 import numpy as np
 
 class Linear(AbstractAI):
-    def fx(self, x):
-        return 2*x + 5
+    def fx1(self, x1, x2, x3):
+        return x1 + x2 + x3
+
+    def fx2(self, x1, x2, x3):
+        return x1 - x2 - x3
 
     def __prepareData(self, minValue, maxValue, count):
         x_tmp = []
         y_tmp = []
         for i in range(count):
-            x = np.random.randint(minValue, maxValue)
-            y = self.fx(x)
-            x_tmp.append(x)
-            y_tmp.append([x, y])
+            x1 = np.random.randint(minValue, maxValue)
+            x2 = np.random.randint(minValue, maxValue)
+            x3 = np.random.randint(minValue, maxValue)
+            y1 = self.fx1(x1, x2, x3)
+            y2 = self.fx2(x1, x2, x3)
+            x_tmp.append([x1, x2, x3])
+            y_tmp.append([y1, y2])
         return x_tmp, y_tmp
 
     def createData(self):
@@ -25,18 +31,18 @@ class Linear(AbstractAI):
 
     def createModel(self):
         model = Sequential()
-        model.add(Dense(output_dim=2, input_dim=1))
+        model.add(Dense(output_dim=2, input_dim=3))
         return model
 
 linear = Linear()
 linear.modelFile = './models/linear.hf5'
 linear.loss = 'mse'
 linear.optimizer = 'Adam'
-linear.epoch = 1000
+linear.epoch = 10000
 
 linear.start(retrain = True)
-linear.predict(np.array([-100]))
+linear.predict(np.array([[100, 200, 300]]))
 
-linear.showData()
-linear.showHistoryAccuracy()
-linear.showHistoryLoss()
+# linear.showData()
+# linear.showHistoryAccuracy()
+# linear.showHistoryLoss()

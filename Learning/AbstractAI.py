@@ -28,8 +28,8 @@ class AbstractAI(ABC):
         try:
             self.model = load_model(self.modelFile)
             return True
-        except:
-            print('Load model has an exeption!')
+        except Exception as e:
+            print('Load model has an exeption: ', e)
             pass
         return False
 
@@ -37,8 +37,8 @@ class AbstractAI(ABC):
         if self.model is not None and self.modelFile is not None:
             try:
                 self.model.save(self.modelFile)
-            except:
-                print('Save model has an exception!')
+            except Exception as e:
+                print('Save model has an exception: ', e)
 
     def train(self):
         self.model.compile(loss=self.loss, optimizer=self.optimizer, metrics=self.metrics)
