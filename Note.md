@@ -1,3 +1,7 @@
+### Resource
+#### [8 Inspirational Applications of Deep Learning](http://machinelearningmastery.com/inspirational-applications-deep-learning/)
+
+
 ### Dense
 Dense implements the operation: output = activation(dot(input, kernel) + bias)
 
